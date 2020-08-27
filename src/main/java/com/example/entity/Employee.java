@@ -11,9 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@DynamicUpdate
 public class Employee implements Serializable {
 	private static final long serialVersionUID = 1L;
 

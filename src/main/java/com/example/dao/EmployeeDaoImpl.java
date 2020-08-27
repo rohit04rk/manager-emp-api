@@ -1,5 +1,7 @@
 package com.example.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -31,4 +33,32 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		return employeeRepo.existsByMobile(mobile);
 	}
 
+	@Override
+	public List<Employee> allEmployees() {
+
+		return employeeRepo.findAll();
+	}
+
+	@Override
+	public Employee findByEmployeeUuid(String employeeUuid) {
+
+		Employee employee = employeeRepo.findByEmployeeUuid(employeeUuid);
+
+		if (employee != null) {
+			return employee;
+		} else {
+			throw new CustomException("Employee not found with uuid " + employeeUuid, ErrorCode.NOT_FOUND);
+		}
+	}
+
+	@Override
+	public void deleteEmployee(Employee employee) {
+
+		try {
+			employeeRepo.delete(employee);
+		} catch (Exception e) {
+			throw new CustomException("Error while deleting employee", ErrorCode.INTERNAL_SERVER_ERROR);
+		}
+
+	}
 }

@@ -11,7 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 @Entity
+@DynamicUpdate
 public class Manager implements Serializable {
 	private static final long serialVersionUID = 1L;
 

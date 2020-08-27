@@ -1,17 +1,20 @@
 package com.example.dto;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import com.example.validation.ValidMobile;
+import com.example.validation.ValidName;
 
 public class EmployeeDto extends CommonFields {
 
 	@NotBlank
-	@Pattern(regexp = "^[6-9]\\d{9}$", message = "mobile number is invalid")
+	@ValidMobile
 	private String mobile;
 
 	@NotBlank
-	@Size(max = 50, message = "Max 20 characters are allowed for city name")
+	@ValidName
+	@Size(max = 50, message = "Max 50 characters are allowed")
 	private String city;
 
 	public String getMobile() {

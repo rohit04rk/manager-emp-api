@@ -48,7 +48,6 @@ public class EmployeeController {
 	}
 
 	@GetMapping(EMPLOYEE)
-	@PreAuthorize(Role.MANAGER)
 	public ResponseEntity<SuccessResponse<List<Employee>>> allEmployees() {
 
 		List<Employee> employees = employeeService.allEmployees();

@@ -27,6 +27,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	private CustomGenerator generator;
 
+	/**
+	 * Adds new employee
+	 * 
+	 * @param employeeDto details of employee
+	 * @exception CustomException If employee with same mobile number already exist
+	 * 
+	 * */
 	@Override
 	public void saveEmployee(EmployeeDto employeeDto) {
 
@@ -42,19 +49,49 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employeeDao.saveEmployee(employee);
 	}
 
+	/**
+	 * All employees details
+	 * 
+	 * @return list of employees
+	 * 
+	 * */
 	@Override
 	public List<Employee> allEmployees() {
 
-		return null;
+		return employeeDao.allEmployees();
 	}
 
+	/**
+	 * Update employee details
+	 * 
+	 * @param employeeUuid Id of employee whose details want to update
+	 * @param employeeDto updated details of employee
+	 * @exception CustomException If employee not found for employeeUuid
+	 * 
+	 * */
 	@Override
 	public void updateEmployee(String employeeUuid, @Valid EmployeeDto employeeDto) {
 
+		Employee oldEmployee = employeeDao.findByEmployeeUuid(employeeUuid);
+
+		Employee updatedEmployee = mapper.convert(employeeDto, Employee.class);
+		updatedEmployee.setEmployeeId(oldEmployee.getEmployeeId());
+		updatedEmployee.setEmployeeUuid(employeeUuid);
+
+		employeeDao.saveEmployee(updatedEmployee);
 	}
 
+	/**
+	 * Delete employee
+	 * 
+	 * @param employeeUuid Id of employee
+	 * @exception CustomException If employee not found for employeeUuid
+	 * 
+	 * */
 	@Override
 	public void deleteEmployee(String employeeUuid) {
+		Employee employee = employeeDao.findByEmployeeUuid(employeeUuid);
 
+		employeeDao.deleteEmployee(employee);
 	}
 }

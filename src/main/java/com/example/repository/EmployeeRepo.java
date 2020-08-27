@@ -8,4 +8,5 @@ public interface EmployeeRepo extends JpaRepository<Employee, Long> {
 
 	boolean existsByMobile(String mobile);
 
+	Employee findByEmployeeUuid(String employeeUuid);
 }

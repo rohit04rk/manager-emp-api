@@ -1,5 +1,7 @@
 package com.example.dao;
 
+import java.util.List;
+
 import com.example.entity.Employee;
 
 public interface EmployeeDao {
@@ -8,4 +10,9 @@ public interface EmployeeDao {
 
 	boolean isEmployeeExistsByMobile(String mobile);
 
+	List<Employee> allEmployees();
+
+	Employee findByEmployeeUuid(String employeeUuid);
+
+	void deleteEmployee(Employee employee);
 }

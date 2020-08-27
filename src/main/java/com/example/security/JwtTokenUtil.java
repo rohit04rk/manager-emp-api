@@ -1,10 +1,10 @@
 package com.example.security;
 
 import static com.example.security.JwtConstants.AUTHORITIES_KEY;
-import static com.example.security.JwtConstants.JWT_TOKEN_VALIDITY;
 import static com.example.security.JwtConstants.SIGNING_KEY;
 import static com.example.security.JwtConstants.UUID;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.stream.Collectors;
 
@@ -50,8 +50,7 @@ public class JwtTokenUtil {
 
 		return Jwts.builder().claim(UUID, authUser.getManagerUuid()).claim(AUTHORITIES_KEY, authorities)
 				.setSubject(authentication.getName()).setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
-				.signWith(SignatureAlgorithm.HS512, SIGNING_KEY).compact();
+				.setExpiration(new Date(getTokenValidity())).signWith(SignatureAlgorithm.HS512, SIGNING_KEY).compact();
 
 	}
 
@@ -60,4 +59,10 @@ public class JwtTokenUtil {
 		return !claims.getExpiration().before(new Date());
 	}
 
+	private long getTokenValidity() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.DATE, 1);
+
+		return calendar.getTimeInMillis();
+	}
 }

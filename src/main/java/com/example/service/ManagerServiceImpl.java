@@ -33,6 +33,13 @@ public class ManagerServiceImpl implements ManagerService {
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
 
+	/**
+	 * Adds new manager
+	 * 
+	 * @param managerDto details of manager
+	 * @exception CustomException If manager with same email id already exist
+	 * 
+	 * */
 	@Override
 	public void saveManager(ManagerDto managerDto) {
 
@@ -49,6 +56,13 @@ public class ManagerServiceImpl implements ManagerService {
 		managerDao.saveManager(manager);
 	}
 
+	/**
+	 * Adds new manager
+	 * 
+	 * @param authentication spring security authentication object
+	 * @return JWT token 
+	 * 
+	 * */
 	@Override
 	public AuthToken managerLogin(Authentication authentication) {
 
