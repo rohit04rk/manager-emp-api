@@ -57,7 +57,7 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	/**
-	 * Adds new manager
+	 * Login of Manager
 	 * 
 	 * @param authentication spring security authentication object
 	 * @return JWT token 

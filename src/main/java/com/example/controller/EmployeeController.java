@@ -1,7 +1,7 @@
 package com.example.controller;
 
 import static com.example.constant.UrlMapping.BASE_URL;
-import static com.example.constant.UrlMapping.EMPLOYEE;
+import static com.example.constant.UrlMapping.EMPLOYEES;
 import static com.example.constant.UrlMapping.SINGLE_EMPLOYEE;
 
 import java.util.List;
@@ -38,16 +38,16 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 
-	@PostMapping(EMPLOYEE)
+	@PostMapping(EMPLOYEES)
 	@PreAuthorize(Role.MANAGER)
-	public ResponseEntity<SuccessResponse<String>> saveEmployee(@RequestBody @Valid EmployeeDto employeeDto) {
+	public ResponseEntity<SuccessResponse<Employee>> saveEmployee(@RequestBody @Valid EmployeeDto employeeDto) {
 
-		employeeService.saveEmployee(employeeDto);
+		Employee employee = employeeService.saveEmployee(employeeDto);
 
-		return responseMaker.successResponse("Employee added successfully", HttpStatus.OK);
+		return responseMaker.successResponse(employee, HttpStatus.CREATED);
 	}
 
-	@GetMapping(EMPLOYEE)
+	@GetMapping(EMPLOYEES)
 	public ResponseEntity<SuccessResponse<List<Employee>>> allEmployees() {
 
 		List<Employee> employees = employeeService.allEmployees();
@@ -55,14 +55,23 @@ public class EmployeeController {
 		return responseMaker.successResponse(employees, HttpStatus.OK);
 	}
 
+	@GetMapping(SINGLE_EMPLOYEE)
+	@PreAuthorize(Role.MANAGER)
+	public ResponseEntity<SuccessResponse<Employee>> updateEmployee(@PathVariable String employeeUuid) {
+
+		Employee employee = employeeService.employeeByUuid(employeeUuid);
+
+		return responseMaker.successResponse(employee, HttpStatus.OK);
+	}
+
 	@PutMapping(SINGLE_EMPLOYEE)
 	@PreAuthorize(Role.MANAGER)
-	public ResponseEntity<SuccessResponse<String>> updateEmployee(@PathVariable String employeeUuid,
+	public ResponseEntity<SuccessResponse<Employee>> updateEmployee(@PathVariable String employeeUuid,
 			@RequestBody @Valid EmployeeDto employeeDto) {
 
-		employeeService.updateEmployee(employeeUuid, employeeDto);
+		Employee employee = employeeService.updateEmployee(employeeUuid, employeeDto);
 
-		return responseMaker.successResponse("Employee details updated successfully", HttpStatus.OK);
+		return responseMaker.successResponse(employee, HttpStatus.OK);
 	}
 
 	@DeleteMapping(SINGLE_EMPLOYEE)

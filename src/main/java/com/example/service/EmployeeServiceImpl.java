@@ -33,9 +33,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 * @param employeeDto details of employee
 	 * @exception CustomException If employee with same mobile number already exist
 	 * 
-	 * */
+	 */
 	@Override
-	public void saveEmployee(EmployeeDto employeeDto) {
+	public Employee saveEmployee(EmployeeDto employeeDto) {
 
 		if (employeeDao.isEmployeeExistsByMobile(employeeDto.getMobile())) {
 			throw new CustomException("Employee with mobile number " + employeeDto.getMobile() + " already exist",
@@ -46,7 +46,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		employee.setEmployeeUuid(generator.generateUUID());
 
-		employeeDao.saveEmployee(employee);
+		return employeeDao.saveEmployee(employee);
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 * 
 	 * @return list of employees
 	 * 
-	 * */
+	 */
 	@Override
 	public List<Employee> allEmployees() {
 
@@ -62,15 +62,28 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	/**
+	 * All employees details
+	 * 
+	 * @param employeeUuid Id of employee whose record want to get
+	 * @return employee object
+	 * 
+	 */
+	@Override
+	public Employee employeeByUuid(String employeeUuid) {
+
+		return employeeDao.findByEmployeeUuid(employeeUuid);
+	}
+
+	/**
 	 * Update employee details
 	 * 
 	 * @param employeeUuid Id of employee whose details want to update
-	 * @param employeeDto updated details of employee
+	 * @param employeeDto  updated details of employee
 	 * @exception CustomException If employee not found for employeeUuid
 	 * 
-	 * */
+	 */
 	@Override
-	public void updateEmployee(String employeeUuid, @Valid EmployeeDto employeeDto) {
+	public Employee updateEmployee(String employeeUuid, @Valid EmployeeDto employeeDto) {
 
 		Employee oldEmployee = employeeDao.findByEmployeeUuid(employeeUuid);
 
@@ -78,7 +91,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		updatedEmployee.setEmployeeId(oldEmployee.getEmployeeId());
 		updatedEmployee.setEmployeeUuid(employeeUuid);
 
-		employeeDao.saveEmployee(updatedEmployee);
+		return employeeDao.saveEmployee(updatedEmployee);
 	}
 
 	/**
@@ -87,11 +100,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 * @param employeeUuid Id of employee
 	 * @exception CustomException If employee not found for employeeUuid
 	 * 
-	 * */
+	 */
 	@Override
 	public void deleteEmployee(String employeeUuid) {
 		Employee employee = employeeDao.findByEmployeeUuid(employeeUuid);
 
 		employeeDao.deleteEmployee(employee);
 	}
+
 }

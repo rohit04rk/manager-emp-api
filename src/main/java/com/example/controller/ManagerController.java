@@ -42,7 +42,7 @@ public class ManagerController {
 
 		managerService.saveManager(managerDto);
 
-		return responseMaker.successResponse("Manager added successfully", HttpStatus.OK);
+		return responseMaker.successResponse("Manager added successfully", HttpStatus.CREATED);
 	}
 
 	@PostMapping(LOGIN)

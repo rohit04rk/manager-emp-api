@@ -17,10 +17,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	private EmployeeRepo employeeRepo;
 
 	@Override
-	public void saveEmployee(Employee employee) {
+	public Employee saveEmployee(Employee employee) {
 
 		try {
-			employeeRepo.save(employee);
+			return employeeRepo.save(employee);
 		} catch (Exception e) {
 			throw new CustomException("Error while saving employee", ErrorCode.INTERNAL_SERVER_ERROR);
 		}

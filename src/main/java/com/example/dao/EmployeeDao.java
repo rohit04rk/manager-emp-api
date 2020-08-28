@@ -6,7 +6,7 @@ import com.example.entity.Employee;
 
 public interface EmployeeDao {
 
-	void saveEmployee(Employee employee);
+	Employee saveEmployee(Employee employee);
 
 	boolean isEmployeeExistsByMobile(String mobile);
 

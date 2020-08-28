@@ -24,10 +24,6 @@ public class CommonFields {
 	private Date dateOfBirth;
 
 	@NotBlank
-	@Size(max = 50, message = "Max 50 characters are allowed")
-	private String company;
-
-	@NotBlank
 	@Size(max = 200, message = "Max 200 characters are allowed")
 	private String address;
 
@@ -41,10 +37,6 @@ public class CommonFields {
 
 	public Date getDateOfBirth() {
 		return dateOfBirth;
-	}
-
-	public String getCompany() {
-		return company;
 	}
 
 	public String getAddress() {

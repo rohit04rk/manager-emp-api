@@ -9,11 +9,13 @@ import com.example.entity.Employee;
 
 public interface EmployeeService {
 
-	void saveEmployee(EmployeeDto employeeDto);
+	Employee saveEmployee(EmployeeDto employeeDto);
 
 	List<Employee> allEmployees();
 
-	void updateEmployee(String employeeUuid, @Valid EmployeeDto employeeDto);
+	Employee updateEmployee(String employeeUuid, @Valid EmployeeDto employeeDto);
 
 	void deleteEmployee(String employeeUuid);
+
+	Employee employeeByUuid(String employeeUuid);
 }
