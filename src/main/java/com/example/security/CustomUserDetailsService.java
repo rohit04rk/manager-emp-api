@@ -27,6 +27,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		if (manager != null) {
 			AuthUser authUser = new AuthUser(manager.getEmail(), manager.getPassword(), getAuthority());
 			authUser.setManagerUuid(manager.getManagerUuid());
+			authUser.setFirstName(manager.getFirstName());
 
 			return authUser;
 		} else {

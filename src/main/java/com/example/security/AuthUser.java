@@ -10,6 +10,7 @@ public class AuthUser extends User {
 	private static final long serialVersionUID = 1L;
 
 	private String managerUuid;
+	private String firstName;
 
 	public AuthUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
@@ -46,6 +47,14 @@ public class AuthUser extends User {
 		} else if (!managerUuid.equals(other.managerUuid))
 			return false;
 		return true;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 }

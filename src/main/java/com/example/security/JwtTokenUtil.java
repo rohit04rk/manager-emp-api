@@ -1,6 +1,7 @@
 package com.example.security;
 
 import static com.example.security.JwtConstants.AUTHORITIES_KEY;
+import static com.example.security.JwtConstants.NAME;
 import static com.example.security.JwtConstants.SIGNING_KEY;
 import static com.example.security.JwtConstants.UUID;
 
@@ -48,9 +49,10 @@ public class JwtTokenUtil {
 		final String authorities = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
 				.collect(Collectors.joining(","));
 
-		return Jwts.builder().claim(UUID, authUser.getManagerUuid()).claim(AUTHORITIES_KEY, authorities)
-				.setSubject(authentication.getName()).setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(getTokenValidity())).signWith(SignatureAlgorithm.HS512, SIGNING_KEY).compact();
+		return Jwts.builder().claim(UUID, authUser.getManagerUuid()).claim(NAME, authUser.getFirstName())
+				.claim(AUTHORITIES_KEY, authorities).setSubject(authentication.getName())
+				.setIssuedAt(new Date(System.currentTimeMillis())).setExpiration(new Date(getTokenValidity()))
+				.signWith(SignatureAlgorithm.HS512, SIGNING_KEY).compact();
 
 	}
 

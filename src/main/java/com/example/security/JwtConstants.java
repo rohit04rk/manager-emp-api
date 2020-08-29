@@ -11,5 +11,6 @@ public class JwtConstants {
 	public static final String SIGNING_KEY = "MB_TSK_ASS";
 
 	public static final String UUID = "uuid";
+	public static final String NAME = "name";
 	public static final String AUTHORITIES_KEY = "role";
 }

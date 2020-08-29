@@ -87,6 +87,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		Employee oldEmployee = employeeDao.findByEmployeeUuid(employeeUuid);
 
+		if (!oldEmployee.getMobile().equals(employeeDto.getMobile())
+				&& employeeDao.isEmployeeExistsByMobile(employeeDto.getMobile())) {
+			throw new CustomException("Employee with mobile number " + employeeDto.getMobile() + " already exist",
+					ErrorCode.USER_ALREADY_EXIST);
+		}
+
 		Employee updatedEmployee = mapper.convert(employeeDto, Employee.class);
 		updatedEmployee.setEmployeeId(oldEmployee.getEmployeeId());
 		updatedEmployee.setEmployeeUuid(employeeUuid);
