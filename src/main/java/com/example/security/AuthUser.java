@@ -24,31 +24,6 @@ public class AuthUser extends User {
 		this.managerUuid = managerUuid;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((managerUuid == null) ? 0 : managerUuid.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AuthUser other = (AuthUser) obj;
-		if (managerUuid == null) {
-			if (other.managerUuid != null)
-				return false;
-		} else if (!managerUuid.equals(other.managerUuid))
-			return false;
-		return true;
-	}
-
 	public String getFirstName() {
 		return firstName;
 	}
